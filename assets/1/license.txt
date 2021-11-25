@@ -1,0 +1,11 @@
+Model Information:
+* title:	Scary Stories 3
+* source:	https://sketchfab.com/3d-models/scary-stories-3-b42e43e9878c447391a2e1328094a887
+* author:	Adan (https://sketchfab.com/Apdigivid.)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Scary Stories 3" (https://sketchfab.com/3d-models/scary-stories-3-b42e43e9878c447391a2e1328094a887) by Adan (https://sketchfab.com/Apdigivid.) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

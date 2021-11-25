@@ -1,5 +1,5 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.131.3';
-
+import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.131.3/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.131.3/examples/jsm/controls/OrbitControls.js';
 
 //Hexadecimal color (recommended)
@@ -12,11 +12,19 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000,
 );
+const light = new THREE.PointLight( 0xffffff, 0.2, 10 );
+  light.position.set( 0, player.height, -5 );
+  scene.add( light );
 const renderer = new THREE.WebGLRenderer();
 
 let speed = 0.01;
 let spotLight;
 let objects = [];
+let loader = new GLTFLoader();
+const textureLoader = new THREE.TextureLoader();
+let Caras;
+let Cara;
+let cosa;
 
 let video1 = document.getElementById('video1');
 let texture1 = new THREE.VideoTexture(video1);
@@ -58,7 +66,7 @@ window.onresize = () => {
   renderer.setSize(window.innerWidth, window.innerHeight, true);
 };
 
-function main() {
+export function main() {
   // Configurracion inicial
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMap.enabled = true;
@@ -89,7 +97,7 @@ function main() {
 
   
 
-  let plane = drawPlane(20, 20, 10, 10, 0x2CB4CC, true);
+  let plane = drawPlane(20, 20, 10, 10, '0x2CB4CC', true);
   plane.rotation.x = Math.PI / 2;
   scene.add(plane);
 
@@ -187,7 +195,7 @@ function main() {
   planevideo1.rotation.z = Math.PI;
   planevideo1.rotation.y = Math.PI/-2.4;
   planevideo1.position.z = 8;
-  planevideo1.position.x = 8;
+  planevideo1.position.x = 9;
   planevideo1.position.y = 1;
   scene.add(planevideo1);
 
@@ -198,8 +206,8 @@ function main() {
   planevideo2.rotation.x = Math.PI;
   planevideo2.rotation.z = Math.PI;
   planevideo2.rotation.y = Math.PI/3.8;
-  planevideo2.position.z = 2;
-  planevideo2.position.x = 5;
+  planevideo2.position.z = 2.5;
+  planevideo2.position.x = 4;
   planevideo2.position.y = 1;
   scene.add(planevideo2);
 
@@ -210,8 +218,8 @@ function main() {
   planevideo3.rotation.x = Math.PI;
   planevideo3.rotation.z = Math.PI;
   planevideo3.rotation.y = Math.PI/2.5;
-  planevideo3.position.z = -4;
-  planevideo3.position.x = -7;
+  planevideo3.position.z = 2.5;
+  planevideo3.position.x = -9;
   planevideo3.position.y = 1;
   scene.add(planevideo3);
   
@@ -225,7 +233,72 @@ function main() {
   planevideo4.position.y = 3;
   scene.add(planevideo4);
 
+  
+
   animate();
+  loadCaras();
+  loadCosa();
+  loadCara();
+}
+
+function loadCosa() {
+  loader.load(
+    'assets/4/scene.gltf',
+    function (gltf) {
+      cosa = gltf.scene.children[0];
+      cosa.position.set(-6.5, 0, 7);
+      cosa.rotation.z=Math.PI/1.5;
+      cosa.scale.set(0.02,0.02,0.02);
+      cosa.castShadow=true;
+      scene.add(cosa);
+      animate();
+    },
+    function (xhr) {
+      console.log((xhr.loaded / xhr.total) * 100 + '% cargado');
+    },
+    function (error) {
+      console.log('Un error ocurrio');
+    },
+  );
+}
+function loadCara() {
+  loader.load(
+    'assets/3/scene.gltf',
+    function (gltf) {
+      Cara = gltf.scene.children[0];
+      Cara.position.set(-3.7,2,-4);
+      Cara.scale.set(0.2,0.2,0.2);
+      Cara.rotation.z=Math.PI;
+      Cara.castShadow=true;
+      scene.add(Cara);
+      animate();
+    },
+    function (xhr) {
+      console.log((xhr.loaded / xhr.total) * 100 + '% cargado');
+    },
+    function (error) {
+      console.log('Un error ocurrio');
+    },
+  );
+}
+function loadCaras() {
+  loader.load(
+    'assets/1/scene.gltf',
+    function (gltf) {
+      Caras = gltf.scene.children[0];
+      Caras.position.set(8,2,0);
+      Caras.rotation.z=Math.PI/-1.5;
+      Caras.castShadow=true;
+      scene.add(Caras);
+      animate();
+    },
+    function (xhr) {
+      console.log((xhr.loaded / xhr.total) * 100 + '% cargado');
+    },
+    function (error) {
+      console.log('Un error ocurrio');
+    },
+  );
 }
 
 function drawPlane(w, h, sh, sw, color, ds = false) {
@@ -235,6 +308,7 @@ function drawPlane(w, h, sh, sw, color, ds = false) {
     side: ds ? THREE.DoubleSide : undefined,
   });
   const plane = new THREE.Mesh(geometry, material);
+  plane.castShadow= true;
   plane.receiveShadow = true;
   return plane;
 }
@@ -245,31 +319,41 @@ function drawCube(color, wireframe = false) {
   const material = new THREE.MeshPhongMaterial({color : color, wireframe: wireframe,});
   const cube = new THREE.Mesh(geometry, material);
   cube.castShadow = true;
+  cube.receiveShadow= true;
   return cube;
 }
 
 function setupLights() {
-  const ambient = new THREE.AmbientLight(0xffffff, 0.4);
-  scene.add(ambient);
+  //const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+  //scene.add(ambient);
 
-  spotLight = new THREE.SpotLight(0xffffff, 1);
-  spotLight.position.set(0, 20, 0);
-  spotLight.angle = Math.PI / 4;
-  spotLight.penumbra = 0.1;
-  spotLight.decay = 1;
-  spotLight.distance = 400;
+  //spotLight = new THREE.SpotLight(0xffffff, 1);
+  //spotLight.position.set(0, 20, 0);
+  //spotLight.angle = Math.PI / 4;
+  //spotLight.penumbra = 0.1;
+  //spotLight.decay = 1;
+  //spotLight.distance = 400;
+//
+  //spotLight.castShadow = true;
+  //scene.add(spotLight);
+//
+  //const light = new THREE.PointLight( 0xffffff, 0.2, 10 );
+  //light.position.set( 0, 0, 0 );
+  //scene.add( light );
+const light1 = new THREE.PointLight( 0xffffff, 0.2, 5, 1.1 );
+light1.position.set( 9, 1, 8 );
+scene.add( light1 );
 
-  spotLight.castShadow = true;
-  scene.add(spotLight);
+const light2 = new THREE.PointLight( 0xffffff, 0.2, 5, 1.1 );
+light2.position.set( 4, 1, 2.5 );
+scene.add( light2 );
+
+const light3 = new THREE.PointLight( 0xffffff, 0.2, 5, 1.1 );
+light3.position.set( -9, 1, 2.5 );
+scene.add( light3 );
 
 
 }
-
-
-
-
-
-
 
 function speedUp() {
   speed += 0.001;
@@ -279,30 +363,48 @@ function speedDown() {
   speed -= 0.001;
 }
 
+
 function animate() {
   requestAnimationFrame(animate);
+  
+
   if(keyboard[87]){ // W key
     camera.position.x -= (Math.sin(camera.rotation.y) * player.speed) * 0.8;
     camera.position.z -= (-Math.cos(camera.rotation.y) * player.speed) * 0.8;
+    light.position.x -= (Math.sin(light.rotation.y) * player.speed) * 0.8;
+    light.position.z -= (-Math.cos(light.rotation.y) * player.speed) * 0.8;
+
     }
   if(keyboard[83]){ // S key
     camera.position.x += (Math.sin(camera.rotation.y) * player.speed) * 0.8;
     camera.position.z += (-Math.cos(camera.rotation.y) * player.speed) * 0.8;
+    light.position.x += (Math.sin(light.rotation.y) * player.speed) * 0.8;
+    light.position.z += (-Math.cos(light.rotation.y) * player.speed) * 0.8;
     }
   if(keyboard[65]){ // A key
     camera.position.x += (Math.sin(camera.rotation.y + Math.PI/2) * player.speed) * 0.8;
     camera.position.z += (-Math.cos(camera.rotation.y + Math.PI/2) * player.speed) * 0.8;
+    light.position.x += (Math.sin(light.rotation.y + Math.PI/2) * player.speed) * 0.8;
+    light.position.z += (-Math.cos(light.rotation.y + Math.PI/2) * player.speed) * 0.8;
     }
   if(keyboard[68  ]){ // D key
     camera.position.x += (Math.sin(camera.rotation.y - Math.PI/2) * player.speed) * 0.8;
     camera.position.z += (-Math.cos(camera.rotation.y - Math.PI/2) * player.speed) * 0.8;
+    light.position.x += (Math.sin(light.rotation.y - Math.PI/2) * player.speed) * 0.8;
+    light.position.z += (-Math.cos(light.rotation.y - Math.PI/2) * player.speed) * 0.8;
     }
   if(keyboard[37]){ // left arrow key
     camera.rotation.y -= player.turnSpeed * 0.8;
-    }
+    light.rotation.y -= player.turnSpeed * 0.8;
+  }
   if(keyboard[39]){ // right arrow key
     camera.rotation.y += player.turnSpeed * 0.8;
+    light.rotation.y += player.turnSpeed * 0.8;
     }
+
+  
+
+  
   //if(keyboard[38]){ // up arrow key
   //  camera.rotation.x -= player.turnSpeed * 0.8;
   //  }
@@ -317,6 +419,9 @@ function animate() {
   
 
   }
+
+  
+
   function keyDown(event){
     keyboard[event.keyCode] = true;
   }

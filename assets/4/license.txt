@@ -1,0 +1,11 @@
+Model Information:
+* title:	Spider monster Rigged
+* source:	https://sketchfab.com/3d-models/spider-monster-rigged-ef71c4f221304a7ea9f01b691867f3d0
+* author:	Ploobert (https://sketchfab.com/Ploobert)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Spider monster Rigged" (https://sketchfab.com/3d-models/spider-monster-rigged-ef71c4f221304a7ea9f01b691867f3d0) by Ploobert (https://sketchfab.com/Ploobert) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)

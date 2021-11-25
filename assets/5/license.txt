@@ -1,0 +1,11 @@
+Model Information:
+* title:	Shadow Spirit Mermaid rigged
+* source:	https://sketchfab.com/3d-models/shadow-spirit-mermaid-rigged-81cdf222e67549ac9ae678bfc149f33a
+* author:	AVINAS (https://sketchfab.com/AVINAS)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Shadow Spirit Mermaid rigged" (https://sketchfab.com/3d-models/shadow-spirit-mermaid-rigged-81cdf222e67549ac9ae678bfc149f33a) by AVINAS (https://sketchfab.com/AVINAS) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
